@@ -1,0 +1,6 @@
+{
+    "require": {
+        "team-reflex/discord-php": "dev-master",
+        "illuminate/database": "^9.14"
+    }
+}
