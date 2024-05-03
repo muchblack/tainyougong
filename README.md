@@ -9,4 +9,4 @@
 將token 替換成 你的bot 的token 
 
 ### 使用方式
-php index.php 
+在該目錄執行 php index.php 
