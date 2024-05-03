@@ -4,5 +4,9 @@
 使用 DiscordPHP 套件進行開發
 相關安裝說明可以參考[DiscordPHP 文件](https://discord-php.github.io/DiscordPHP/#intro)
 
+### 安裝
+複製 config,inc.php 爲 config.php 
+將token 替換成 你的bot 的token 
+
 ### 使用方式
 php index.php 
