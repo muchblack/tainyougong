@@ -7,4 +7,5 @@ $config = [
         'username' => 'YOUR MYSQL USERNAME HERE.',
         'password' => 'YOUR MYSQL PASSORD HERE.',
     ],
+    'prefix' => 'YOUR COMMAND PREFIX HERE',
 ] ;

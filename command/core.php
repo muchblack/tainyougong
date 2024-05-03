@@ -1,7 +1,7 @@
 <?php
 namespace command;
 
-class core
+interface core
 {
-
+    public function run();
 }

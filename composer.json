@@ -6,6 +6,9 @@
     "autoload": {
         "classmap": [
             "Models"
-        ]
+        ],
+        "psr-4": {
+            "command\\":"command"
+        }
     }
 }
