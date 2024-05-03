@@ -8,7 +8,9 @@
             "Models"
         ],
         "psr-4": {
-            "command\\":"command"
+            "command\\":"command",
+            "App\\":"App",
+            "Traits\\":"Traits"
         }
     }
 }
