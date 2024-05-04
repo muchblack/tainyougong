@@ -4,7 +4,7 @@ namespace App;
 use Discord\Discord;
 use Discord\WebSockets\Intents;
 use Discord\WebSockets\Event;
-use Discord\Parts\Embed\Embed;
+use Discord\Builders\MessageBuilder;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -34,7 +34,8 @@ class tainYouGongBot {
                 Intents::GUILD_MESSAGES, 
                 Intents::DIRECT_MESSAGES, 
                 Intents::GUILD_MESSAGE_TYPING, 
-                Intents::DIRECT_MESSAGE_REACTIONS
+                Intents::DIRECT_MESSAGE_REACTIONS,
+                Intents::GUILDS,
             ],
             'logger' => $newLogger,
         ]);
@@ -44,57 +45,67 @@ class tainYouGongBot {
 
     public function run($discord, $config) 
     {
-        $discord->on('init', function ($discord) use ($config) {
+        $discord->on('init', function (Discord $discord) use ($config) {
             echo "Bot is ready!", PHP_EOL;
-            $discord->on(Event::MESSAGE_CREATE, function ($message) use ($config) {        
-                // If message is from a bot
-                if ($message->author->bot) {
-                    // Do nothing
-                    return;
+        });
+        $discord->on(Event::MESSAGE_CREATE, function ($message) use ($config, $discord) {  
+            // 只要是bot發的訊息一律不處理，防止一直loop
+            if ($message->author->bot) {
+                // Do nothing
+                return;
+            }
+            echo "{$message->author->global_name}: {$message->content}",PHP_EOL;
+            // If message is "ping"
+            if ($message->content == 'ping') {
+                // Reply with "pong"
+                $message->reply('pong');
+            }
+            //測試
+            $originCommand = $message->content ;
+    
+            //指令類型 !help <參數1> <參數2>
+            if(strpos($originCommand, $config['prefix']) !== false ){
+                $oriParams  = explode(' ', $originCommand);
+                //先拆params
+                $command = explode($config['prefix'], $oriParams[0]);
+                unset($oriParams[0]);
+    
+                //用中文換英文class name
+                $commandsList = $this->getCommands();
+                $className = $commandsList[$command[1]];
+    
+                $class = '\command\\'.$className;
+                if(class_exists($class))
+                {
+                    $objClass = new $class($discord);
+                    //注意：回傳格式['tts'=> 1500, 'frontMessage'=>'','message'=>'']
+                    $txt = $objClass->run();
                 }
-                echo "{$message->author->global_name}: {$message->content}",PHP_EOL;
-                // If message is "ping"
-                if ($message->content == 'ping') {
-                    // Reply with "pong"
-                    $message->reply('pong');
+                else
+                {
+                    $txt = [
+                        'tts' => 1500,
+                        'frontMessage' => '請稍等...',
+                        'message' => '指令輸入錯誤'
+                    ];
                 }
-                //測試
-                $originCommand = $message->content ;
-        
-                //指令類型 !help <參數1> <參數2>
-                if(strpos($originCommand, $config['prefix']) !== false ){
-                    $oriParams  = explode(' ', $originCommand);
-                    //先拆params
-                    $command = explode($config['prefix'], $oriParams[0]);
-                    unset($oriParams[0]);
-        
-                    //用中文換英文class name
-                    $commandsList = $this->getCommands();
-                    $className = $commandsList[$command[1]];
-        
-                    $class = '\command\\'.$className;
-                    if(class_exists($class))
-                    {
-                        $objClass = new $class($className);
-                        //注意：回傳格式['tts'=> 1500, 'frontMessage'=>'','message'=>'']
-                        $txt = $objClass->run();
-                    }
-                    else
-                    {
-                        $txt = [
-                            'tts' => 1500,
-                            'frontMessage' => '請稍等...',
-                            'message' => '指令輸入錯誤'
-                        ];
-                    }
 
-                    $message->reply($txt['frontMessage']);
+                if($className === 'Help')
+                {
+                    $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message'])); 
+                }
+                else
+                {
+                    // $message->reply($txt['frontMessage']);
+                    $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));  
                     foreach($txt['message'] as $item)
                     {
                         $message->delayedReply($item, $txt['tts']);
-                    }                    
+                        // $message->channel->sendMessage(MessageBuilder::new()->setTts(true)->setContent($item));
+                    }   
                 }
-            });
+                                 
+            }
         });
         
         $discord->run();

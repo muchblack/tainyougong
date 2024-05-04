@@ -6,6 +6,13 @@ use command\core;
 
 class Divination implements core
 {
+    private $discord;
+
+    public function __construct($discord)
+    {
+        $this->discord = $discord;
+    }
+    
     public function run()
     {
         $path = 'command';

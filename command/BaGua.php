@@ -17,6 +17,13 @@ class BaGua implements core
         '---' => 7, //地
     ];
 
+    private $discord;
+
+    public function __construct($discord)
+    {
+        $this->discord = $discord;
+    }
+
     public function run()
     {
         $oriBaGua = [];

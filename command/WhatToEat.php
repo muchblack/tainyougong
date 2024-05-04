@@ -9,7 +9,7 @@ class WhatToEat implements core
     protected $food = ['漢堡', '炸雞', '可樂'];
     protected $params ;
 
-    public function __construct($params=[])
+    public function __construct($message, $params=[])
     {
         $this->params = $params;
     }
