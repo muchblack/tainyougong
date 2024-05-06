@@ -32,7 +32,6 @@ class Help implements core
             }
         }
 
-        $returnTxt = '目前的指令有：'. implode(',', $command);
         $embed = $this->discord->factory(
             Embed::class,
             [
@@ -73,8 +72,6 @@ class Help implements core
             true
         );
         return [
-            'tts'=> 2000, 
-            'frontMessage'=>'巫女確認中...',
             'message'=> $embed
         ];
     }

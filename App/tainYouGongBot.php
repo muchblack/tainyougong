@@ -86,25 +86,25 @@ class tainYouGongBot {
                     $txt = [
                         'tts' => 1500,
                         'frontMessage' => '請稍等...',
-                        'message' => '指令輸入錯誤'
+                        'message' => ['指令輸入錯誤，可以使用!指令清單確認服務項目哦！']
                     ];
                 }
 
-                if($className === 'Help')
+                switch($className)
                 {
-                    $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message'])); 
-                }
-                else
-                {
-                    // $message->reply($txt['frontMessage']);
-                    $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));  
-                    foreach($txt['message'] as $item)
-                    {
-                        $message->delayedReply($item, $txt['tts']);
-                        // $message->channel->sendMessage(MessageBuilder::new()->setTts(true)->setContent($item));
-                    }   
-                }
-                                 
+                    case 'Help':
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message']));
+                    case 'Divination':
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message'])); 
+                        break;
+                    default:
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));  
+                        foreach($txt['message'] as $item)
+                        {
+                            $message->delayedReply($item, $txt['tts']);
+                        }   
+                }                                 
             }
         });
         

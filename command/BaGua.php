@@ -86,7 +86,7 @@ class BaGua implements core
 
         return [
             'tts' => 2000,
-            'frontMessage' => '你所求的巫女聽到了，正在幫你起卦策算中...',
+            'frontMessage' => '柚巫女聽到了你的祈求，拿出了一把揲草...',
             'message' => $result
         ];
     }
