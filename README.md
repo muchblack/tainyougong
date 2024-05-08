@@ -5,7 +5,7 @@
 相關安裝說明可以參考[DiscordPHP 文件](https://discord-php.github.io/DiscordPHP/#intro)
 
 ### 安裝
-複製 config,inc.php 爲 config.php 
+複製 config.inc.json 爲 config.json
 將token 替換成 你的bot 的token 
 
 ### 使用方式

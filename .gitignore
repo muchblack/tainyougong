@@ -1,7 +1,7 @@
 
 .idea/
 
-config/config.php
+config/config.json
 
 vendor/
 

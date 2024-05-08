@@ -1,7 +1,8 @@
 {
     "require": {
         "team-reflex/discord-php": "dev-master",
-        "illuminate/database": "^9.14"
+        "illuminate/database": "^9.14",
+        "illuminate/events": "^9.52"
     },
     "autoload": {
         "classmap": [
@@ -10,7 +11,8 @@
         "psr-4": {
             "command\\":"command",
             "App\\":"App",
-            "Traits\\":"Traits"
+            "Traits\\":"Traits",
+            "Models\\":"Models"
         }
     }
 }

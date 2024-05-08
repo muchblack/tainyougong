@@ -2,11 +2,9 @@
 
 include __DIR__.'/config/main.php';
 
-use App\tainYouGongBot;
-use command\BaGua;
-use command\Divination;
+// use App\tainYouGongBot;
 
-$bot = new tainYouGongBot($config);
+// $config = json_decode(file_get_contents('./config/config.json'), true);
+// $bot = new tainYouGongBot($config);
 
-// $bagua = new BaGua();
-// var_dump($bagua->run());
+
