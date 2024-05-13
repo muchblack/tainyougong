@@ -37,7 +37,7 @@ class Help implements core
                         'inline' => false,
                     ],
                     [
-                        'name' => '!趣味抽籤',
+                        'name' => '!趣味抽籤(開發中)',
                         'value' => '來試試看趣味抽籤吧！',
                         'inline' => false,
                     ],
@@ -47,7 +47,7 @@ class Help implements core
                         'inline' => false,
                     ],
                     [
-                        'name' => '!露營煮什麼',
+                        'name' => '!露營煮什麼(開發中)',
                         'value' => '露營的時候不知道要煮什麼嗎？柚巫女有整理了一份美食清單哦！ 不妨試試',
                         'inline' => false,
                     ],
