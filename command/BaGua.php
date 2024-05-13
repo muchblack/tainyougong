@@ -28,7 +28,7 @@ class BaGua implements core
     {
         $oriBaGua = [];
         $chBaGua = [];
-        $yiJing = json_decode(file_get_contents('./divination/Divination_chinese.json'), true);
+        $yiJing = json_decode(file_get_contents(dirname(__DIR__).'/divination/Divination_chinese.json'), true);
         
         for ($i = 0; $i < 6; $i++) {
             $temp = $this->_getOne();
