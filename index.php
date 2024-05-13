@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__.'/config/main.php';
+include __DIR__.'/vendor/autoload.php';
 
 use App\tainYouGongBot;
 
