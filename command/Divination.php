@@ -14,7 +14,7 @@ class Divination implements core
         $this->discord = $discord;
     }
     
-    public function run()
+    public function run(): array
     {
         $qianShi = json_decode(file_get_contents('./divination/Divination_JP.json'), true);
         $getQian = mt_rand(0,99);

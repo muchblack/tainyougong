@@ -6,7 +6,7 @@ use command\core;
 
 class BaGua implements core
 {
-    private  $_guaName = [
+    private array $_guaName = [
         '+++' => 0, //天
         '++-' => 1, //澤
         '+-+' => 2, //火
@@ -24,11 +24,10 @@ class BaGua implements core
         $this->discord = $discord;
     }
 
-    public function run()
+    public function run(): array
     {
         $oriBaGua = [];
         $chBaGua = [];
-        $show = [];
         $yiJing = json_decode(file_get_contents('./divination/Divination_chinese.json'), true);
         
         for ($i = 0; $i < 6; $i++) {
@@ -91,7 +90,7 @@ class BaGua implements core
         ];
     }
 
-    private function _guaFormat($gua)
+    private function _guaFormat($gua): array
     {
         $oriGua = "[本卦]  ".$gua['oriGua']['combine']."\n";
         $oriGua .= "[古解]\n".$gua['oriGua']['short']."\n";
@@ -115,7 +114,7 @@ class BaGua implements core
     }
 
 
-    private function _getOne()
+    private function _getOne(): float|int
     {
         $daYan = 49;
         $all = [] ;

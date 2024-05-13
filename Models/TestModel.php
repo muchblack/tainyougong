@@ -1,7 +1,7 @@
 <?php 
 
 namespace Models;
-use Model\MyModel;
+use Models\MyModel;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class TestModel extends MyModel

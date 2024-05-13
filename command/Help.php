@@ -17,21 +17,8 @@ class Help implements core
         $this->discord = $discord;
     }
 
-    public function run()
+    public function run(): array
     {
-        $path = 'command';
-        $files = scandir($path);
-        $commandsList = $this->getCommands();
-        $command = [];
-        foreach($files as $file)
-        {
-            if($file != '.' && $file !='..' && $file != 'core.php')
-            {
-                $tmpFile = explode('.', $file);
-                $command[] = array_search($tmpFile[0], $commandsList);
-            }
-        }
-
         $embed = $this->discord->factory(
             Embed::class,
             [
@@ -50,8 +37,8 @@ class Help implements core
                         'inline' => false,
                     ],
                     [
-                        'name' => '!食物命運大轉輪',
-                        'value' => '不知道吃什麼的時候，柚巫女可以幫你推薦哦！',
+                        'name' => '!趣味抽籤',
+                        'value' => '來試試看趣味抽籤吧！',
                         'inline' => false,
                     ],
                     [

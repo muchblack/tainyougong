@@ -2,6 +2,7 @@
 namespace App;
 
 use Discord\Discord;
+use Discord\Exceptions\IntentException;
 use Discord\WebSockets\Intents;
 use Discord\WebSockets\Event;
 use Discord\Builders\MessageBuilder;
@@ -16,8 +17,11 @@ class tainYouGongBot {
 
     use Commands;
 
-    private $_discord;
+    private Discord $_discord;
 
+    /**
+     * @throws IntentException
+     */
     public function __construct($config)
     {
         //建立新的logger,避免太多DEBUG敘述
@@ -43,7 +47,7 @@ class tainYouGongBot {
         $this->run($this->_discord, $config);
     }
 
-    public function run($discord, $config) 
+    public function run($discord, $config): void
     {
         $discord->on('init', function (Discord $discord) use ($config) {
             echo "Bot is ready!", PHP_EOL;
@@ -64,7 +68,7 @@ class tainYouGongBot {
             $originCommand = $message->content ;
     
             //指令類型 !help <參數1> <參數2>
-            if(strpos($originCommand, $config['prefix']) !== false ){
+            if(str_contains($originCommand, $config['prefix'])){
                 $oriParams  = explode(' ', $originCommand);
                 //先拆params
                 $command = explode($config['prefix'], $oriParams[0]);
@@ -94,9 +98,14 @@ class tainYouGongBot {
                 {
                     case 'Help':
                         $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message']));
+                        break;
                     case 'Divination':
                         $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));
                         $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message'])); 
+                        break;
+                    case 'DivinationForFun':
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addFile($txt['message'])); 
                         break;
                     default:
                         $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));  
