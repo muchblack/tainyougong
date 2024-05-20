@@ -86,7 +86,8 @@ class BaGua implements core
         return [
             'tts' => 2000,
             'frontMessage' => '柚巫女聽到了你的祈求，拿出了一把揲草...',
-            'message' => $result
+            'message' => $result,
+            'isEmbed' => false,
         ];
     }
 

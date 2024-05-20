@@ -51,7 +51,8 @@ class Divination implements core
         );
         return [
             'frontMessage' => '你虔誠的投入香油錢，搖響了鈴鐺並且拜了一拜。隨後拿起籤筒搖了一隻籤出來',
-            'message'=> $embed
+            'message'=> $embed,
+            'isEmbed' => true,
         ];
     }
 }

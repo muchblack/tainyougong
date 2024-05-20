@@ -14,15 +14,18 @@ class DivinationForFun implements core
         $this->discord = $discord;
     }
     
-    public function run()
+    public function run(): array
     {
-        $qianShi = json_decode(file_get_contents('./divination/Divination_JP.json'), true);
-        $getQian = mt_rand(0,99);
-        $rightQian = $qianShi[$getQian];
-        
+        $getQian = mt_rand(1,27);
+        $picPath = dirname(__DIR__).'/Pics/YC_'.$getQian.'.jpg';
+        $picName = 'YC_'.$getQian.'.jpg';
+
         return [
             'frontMessage' => '你虔誠的投入香油錢，搖響鈴鐺並且虔誠一拜。隨後拿起B4君搖出一顆松果出來',
             'message'=> [],
+            'isEmbed' => false,
+            'filePath' => $picPath,
+            'fileName' => $picName
         ];
     }
 }

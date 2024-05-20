@@ -90,30 +90,31 @@ class tainYouGongBot {
                     $txt = [
                         'tts' => 1500,
                         'frontMessage' => '請稍等...',
-                        'message' => ['指令輸入錯誤，可以使用!指令清單確認服務項目哦！']
+                        'message' => ['指令輸入錯誤，可以使用!指令清單確認服務項目哦！'],
+                        'isEmbed' => false,
                     ];
                 }
 
-                switch($className)
+                if($txt['isEmbed'])
                 {
-                    case 'Help':
-                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message']));
-                        break;
-                    case 'Divination':
+                    if(isset($txt['frontMessage']))
+                    {
                         $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));
-                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message'])); 
-                        break;
-                    case 'DivinationForFun':
-                        $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));
-                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addFile($txt['message'])); 
-                        break;
-                    default:
-                        $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));  
-                        foreach($txt['message'] as $item)
-                        {
-                            $message->delayedReply($item, $txt['tts']);
-                        }   
-                }                                 
+                    }
+                    $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addEmbed($txt['message']));
+                }
+                else
+                {
+                    $message->channel->sendMessage(MessageBuilder::new()->setContent($txt['frontMessage']));
+                    if(isset($txt['fileName']))
+                    {
+                        $message->channel->sendMessage(MessageBuilder::new()->setContent('')->addFile($txt['filePath'], $txt['fileName']));
+                    }
+                    foreach($txt['message'] as $item)
+                    {
+                        $message->delayedReply($item, $txt['tts']);
+                    }
+                }
             }
         });
         

@@ -37,7 +37,7 @@ class Help implements core
                         'inline' => false,
                     ],
                     [
-                        'name' => '!趣味抽籤(開發中)',
+                        'name' => '!趣味抽籤',
                         'value' => '來試試看趣味抽籤吧！',
                         'inline' => false,
                     ],
@@ -59,7 +59,9 @@ class Help implements core
             true
         );
         return [
-            'message'=> $embed
+            'message'=> $embed,
+            'isEmbed' => true,
+            'addFile' => false,
         ];
     }
 }
